@@ -58,10 +58,13 @@
 
 ## Comment 6 - Rebase
 **What conflicted:**
-- Watchlist code referenced integer `film_id` assumptions, while `main` migrated film IDs to UUID strings.
+- `.gitignore` had an add/add conflict because `main` introduced a repo `.gitignore` while this branch also added one.
+- `models.py` conflicted where `WatchlistEntry` was introduced on the feature branch but `main` had already migrated `film_id` fields to UUID strings.
 
 **How I resolved it:**
-- Rebasing onto updated `main` and resolving watchlist model/service/route/tests to consistently use UUID film IDs.
+- Kept a combined `.gitignore` that includes environment/database/cache ignores.
+- Updated watchlist model/service/route/tests to consistently use UUID-shaped `film_id` values and docs.
+- Continued rebase until all commits were replayed cleanly.
 
 **How I verified no conflict remains:**
 - Rebase completed with no remaining conflict markers.
@@ -105,4 +108,14 @@ Manual testing steps:
 9. Run tests: `pytest tests/ -v`.
 
 ## Screenshot: git log --oneline
-<!-- Insert screenshot after final history rewrite -->
+Current `git log --oneline origin/main..HEAD` output:
+
+```text
+e93060e docs: add pr response document for review comments
+532bd38 test: add watchlist service test coverage
+37a690f feat: implement watchlist add dedupe remove and visibility controls
+a3bb578 fix: update film retrieval method to use db.session.get in collection and watchlist services
+586bf84 feat: add initial watchlist model and endpoints
+```
+
+<!-- Add screenshot image of this log output here before submission -->
