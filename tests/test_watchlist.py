@@ -44,7 +44,7 @@ def sample_film(app):
 
 def test_add_to_watchlist_nonexistent_film_raises(app, sample_user):
     with app.app_context():
-        fake_film_id = 999999
+        fake_film_id = "00000000-0000-0000-0000-000000000000"
 
         with pytest.raises(FilmNotFoundError):
             add_to_watchlist(user_id=sample_user, film_id=fake_film_id)
